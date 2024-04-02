@@ -1,0 +1,163 @@
+\documentclass[10pt, oneside]{book}
+\usepackage{lipsum}
+% \usepackage{lmodern}
+\usepackage[a4paper, margin=1in, top=1.5in]{geometry}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+
+%%------------------------------------------- GLOSSARIES -----------------------------------------%%
+
+\usepackage{glossaries}
+\usepackage[automake]{glossaries-extra}
+\usepackage{glossary-mcols}
+% \glssetcategoryattribute{general}{glossnamefont}{textsf}
+\renewcommand{\glsnamefont}[1]{\small \bfseries \textcolor{olive4}{#1}}
+
+
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+
+%%------------------------------------------ PAGE LAYOUT -----------------------------------------%%
+
+\usepackage{layout}
+\setlength{\footskip}{48pt}
+\setlength{\marginparsep}{0pt}
+\setlength{\marginparwidth}{72pt}
+\setlength{\headsep}{48pt}
+\setlength{\topmargin}{-12pt}
+\setlength{\textheight}{632pt}
+
+\usepackage[T1]{fontenc}
+\newcommand{\myfont}{\fontfamily{qzc}\selectfont}
+
+\usepackage{tcolorbox}
+\usepackage{tabularray}
+\usepackage{ninecolors}
+\NineColors{saturation = high}
+
+%%------------------------------------------ DATE AND TIME ---------------------------------------%%
+
+\usepackage[english]{datetime2}
+\DTMsavedate{start_date}{2024-03-03}
+\DTMsavedate{end_date}{2024-09-01}
+
+%%------------------------------------ BASIC DOCUMENT DETAILS ------------------------------------%%
+%% These details are easiest hard-coded
+\author{Anirudh Krishnan}
+\title{Discworld}
+\date{\today}
+
+%%-------------------------------------- SECTION FORMATTING --------------------------------------%%
+
+% Chapter
+\renewcommand{\chaptername}{Part}
+\titleformat{\chapter}
+{\Huge\myfont\filcenter}
+{\textcolor{olive2}{Part \thechapter:}}
+{1em}
+{\textcolor{olive2}}
+
+% Section
+\renewcommand{\thesection}{\arabic{section}}
+\titleformat{\section}
+{\huge\myfont\filcenter}
+{\textcolor{brown3}{Book\ \ \thesection:}}
+{1em}
+{\textcolor{brown3}}
+
+\titlespacing{\section}{2em}{4em}{4em}{}
+
+% Subsection
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\titleformat{\subsection}
+{\Large\bfseries\itshape}
+{\textcolor{red3}{Chapter \thesubsection}}
+{1em}
+{}
+
+\titlespacing{\subsection}{2em}{4em}{4em}{}
+
+% Subsubsection
+\renewcommand{\thesubsubsection}{\arabic{subsubsection}}
+\titleformat{\subsubsection}
+{\itshape\bfseries}
+{(\thesubsubsection)}
+{1em}
+% uncomment to have colored text and no background box
+{\color{violet2}}
+% uncomment to instead have a colored box with black text
+% {\tcbox[size = tight, on line, colback = purple5!10, colframe = purple3!10]}
+
+
+% Table of contents
+\dottedcontents{section}[6em]{\vspace{0.5em}}{2em}{0.5em}
+\titlecontents{chapter}[2em]{\color{cyan4}\myfont\Large\vspace{1em}}{}{}{}[]
+
+
+%%-------------------------------------- TABLE OF CONTENTS DEPTH ---------------------------------%%
+% Only show chapters and sections in the table of contents
+\setcounter{tocdepth}{1}
+% \renewcommand{\arraystretch}{4}
+
+%%------------------------------------------ CHARACTERS ------------------------------------------%%
+
+\makeglossaries
+\loadglsentries{characters}
+
+%%------------------------------------------ CHANGE FONT -----------------------------------------%%
+
+\usepackage[tabular, default, light, semibold]{sourceserifpro}
+% \usepackage{lmodern}
+
+%%------------------------------------------ LINE SPACING ----------------------------------------%%
+
+\usepackage{setspace}
+% \setstretch{1.2}
+\onehalfspace
+
+%%------------------------------------------ HEADER AND FOOTER -----------------------------------%%
+
+\usepackage{fancyhdr}
+
+% redefine the contents of the left and right header
+\renewcommand{\chaptermark}[1]{%
+\markboth{\sffamily #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+
+% redefine the fancy pagestyle so that the chapter start pages still remain plain
+\fancypagestyle{fancy}{%
+\fancyhf{}
+\fancyfoot[R]{\sffamily\thepage}
+\fancyhead[R]{\leftmark}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+\pagestyle{fancy}
+
+%%--------------------------------- COMPILE ONLY SELECTED FILES ----------------------------------%%
+
+% only this file is compiled, while maintaining information from all other .aux files
+
+\includeonly{content/city_watch}
+
+%%------------------------------------------ MAIN DOCUMENT ---------------------------------------%%
+
+\begin{document}
+\frontmatter
+
+\layout
+\input{./custom_title_d.tex}
+
+\tableofcontents
+
+\mainmatter
+
+
+\include{content/rincewind}
+\include{content/city_watch}
+
+
+\printglossary[style=index]
+\end{document}
+

@@ -1,0 +1,1 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QIt then places the hat back on his head, to remind him that his instincts made him the best candidate to stand up to sourcery.\\E$"}
