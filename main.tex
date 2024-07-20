@@ -1,6 +1,5 @@
 \documentclass[10pt, oneside]{book}
 \usepackage{lipsum}
-% \usepackage{lmodern}
 \usepackage[a4paper, margin=1in, top=1.5in]{geometry}
 
 \usepackage[hidelinks]{hyperref}
@@ -13,7 +12,7 @@
 \usepackage{glossary-mcols}
 % \glssetcategoryattribute{general}{glossnamefont}{textsf}
 \renewcommand{\glsnamefont}[1]{\small \bfseries \textcolor{olive4}{#1}}
-
+\renewcommand*{\glstextformat}[1]{\textcolor{violet2}{#1}}
 
 \usepackage{titlesec}
 \usepackage{titletoc}
@@ -29,8 +28,8 @@
 \setlength{\topmargin}{-12pt}
 \setlength{\textheight}{632pt}
 
-\usepackage[T1]{fontenc}
 \newcommand{\myfont}{\fontfamily{qzc}\selectfont}
+\usepackage[T1]{fontenc}
 
 \usepackage{tcolorbox}
 \usepackage{tabularray}
@@ -55,7 +54,7 @@
 \renewcommand{\chaptername}{Part}
 \titleformat{\chapter}
 {\Huge\myfont\filcenter}
-{\textcolor{olive2}{Part \thechapter:}}
+{\textcolor{olive2}{Series \thechapter:}}
 {1em}
 {\textcolor{olive2}}
 
@@ -67,7 +66,7 @@
 {1em}
 {\textcolor{brown3}}
 
-\titlespacing{\section}{2em}{4em}{4em}{}
+\titlespacing{\section}{1em}{4em}{4em}[1em]
 
 % Subsection
 \renewcommand{\thesubsection}{\arabic{subsection}}
@@ -88,6 +87,7 @@
 % uncomment to have colored text and no background box
 {\color{violet2}}
 % uncomment to instead have a colored box with black text
+% does not support multiline paragraph titles
 % {\tcbox[size = tight, on line, colback = purple5!10, colframe = purple3!10]}
 
 
@@ -103,19 +103,19 @@
 
 %%------------------------------------------ CHARACTERS ------------------------------------------%%
 
+% Which glossaries to be used
 \makeglossaries
 \loadglsentries{characters}
 
 %%------------------------------------------ CHANGE FONT -----------------------------------------%%
 
-\usepackage[tabular, default, light, semibold]{sourceserifpro}
-% \usepackage{lmodern}
+\usepackage[tabular, default, regular, semibold, scale=1]{sourceserifpro}
 
 %%------------------------------------------ LINE SPACING ----------------------------------------%%
 
 \usepackage{setspace}
-% \setstretch{1.2}
-\onehalfspace
+\setstretch{1.25}
+% \onehalfspace
 
 %%------------------------------------------ HEADER AND FOOTER -----------------------------------%%
 
@@ -123,14 +123,17 @@
 
 % redefine the contents of the left and right header
 \renewcommand{\chaptermark}[1]{%
-\markboth{\sffamily #1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+\markboth{\sffamily \footnotesize #1}{}}
+\renewcommand{\sectionmark}[1]{%
+\markboth{\sffamily \footnotesize #1}{}}
+% \renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
 
 % redefine the fancy pagestyle so that the chapter start pages still remain plain
 \fancypagestyle{fancy}{%
 \fancyhf{}
-\fancyfoot[R]{\sffamily\thepage}
+\fancyfoot[C]{\sffamily \normalfont \thepage}
 \fancyhead[R]{\leftmark}
+\fancyhead[L]{\sffamily \footnotesize Discworld}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}}
 \pagestyle{fancy}
@@ -138,10 +141,10 @@
 %%--------------------------------- COMPILE ONLY SELECTED FILES ----------------------------------%%
 
 % only this file is compiled, while maintaining information from all other .aux files
+% every file is a series, with input commands for each novel inside it
+\includeonly{content/young_adult}
 
-\includeonly{content/city_watch}
-
-%%------------------------------------------ MAIN DOCUMENT ---------------------------------------%%
+%%---------------------------------------- MAIN DOCUMENT -----------------------------------------%%
 
 \begin{document}
 \frontmatter
@@ -156,8 +159,14 @@
 
 \include{content/rincewind}
 \include{content/city_watch}
+\include{content/death}
+\include{content/industrial_revolution}
+\include{content/ancient_civilizations}
+\include{content/witches}
+\include{content/young_adult}
 
 
+% visual style for the glossaries
 \printglossary[style=index]
 \end{document}
 
